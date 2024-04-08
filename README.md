@@ -27,19 +27,18 @@ You can simply copy the markdown table and paste it in `tablem` function.
 And you can use custom render function.
 
 ```typ
-#import "@preview/tablex:0.0.6": tablex, hlinex
 #import "@preview/tablem:0.1.0": tablem
 
 #let three-line-table = tablem.with(
   render: (columns: auto, ..args) => {
-    tablex(
+    table(
       columns: columns,
-      auto-lines: false,
+      stroke: none,
       align: center + horizon,
-      hlinex(y: 0),
-      hlinex(y: 1),
+      table.hline(y: 0),
+      table.hline(y: 1, stroke: .5pt),
       ..args,
-      hlinex(),
+      table.hline(),
     )
   }
 )

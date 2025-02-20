@@ -14,7 +14,7 @@ Have a look at the source [here](./examples/example.typ).
 You can simply copy the markdown table and paste it in `tablem` function.
 
 ```typ
-#import "@preview/tablem:0.1.0": tablem
+#import "@preview/tablem:0.1.0": tablem, three-line-table
 
 #tablem[
   | *Name* | *Location* | *Height* | *Score* |
@@ -27,7 +27,7 @@ You can simply copy the markdown table and paste it in `tablem` function.
 And you can use custom render function.
 
 ```typ
-#import "@preview/tablem:0.1.0": tablem
+#import "@preview/tablem:0.1.0": tablem, three-line-table
 
 #let three-line-table = tablem.with(
   render: (columns: auto, ..args) => {
@@ -60,6 +60,7 @@ And you can use custom render function.
 #let tablem(
   render: table,
   ignore-second-row: true,
+  use-table-header: true,
   ..args,
   body
 ) = { .. }
@@ -68,7 +69,8 @@ And you can use custom render function.
 **Arguments:**
 
 - `render`: [`(columns: int, ..args) => { .. }`] &mdash; Custom render function, default to be `table`, receiving a integer-type columns, which is the count of first row. `..args` is the combination of `args` of `tablem` function and children genenerated from `body`.
-- `ignore-second-row`: [`boolean`] &mdash; Whether to ignore the second row (something like `|---|`).
+- `ignore-second-row`: [`boolean`] &mdash; Whether to ignore the second row (something like `|---|`). Default to be `true`.
+- `use-table-header`: [`boolean`] &mdash; Whether to use `table.header` wrapper for the first row. Default to be `true`.
 - `args`: [`any`] &mdash; Some arguments you want to pass to `render` function.
 - `body`: [`content`] &mdash; The markdown-like table. There should be no extra line breaks in it.
 

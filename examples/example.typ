@@ -1,25 +1,17 @@
-#import "@preview/tablex:0.0.6": tablex, hlinex
-#import "../tablem.typ": tablem
+#import "../tablem.typ": tablem, three-line-table
 
 #set page(width: 30em, height: auto)
 
-#tablem[
-  | *Name* | *Location* | *Height* | *Score* |
-  | ------ | ---------- | -------- | ------- |
-  | John   | Second St. | 180 cm   |  5      |
-  | Wally  | Third Av.  | 160 cm   |  10     |
-]
-
 #let three-line-table = tablem.with(
   render: (columns: auto, ..args) => {
-    tablex(
+    table(
       columns: columns,
-      auto-lines: false,
+      stroke: none,
       align: center + horizon,
-      hlinex(y: 0),
-      hlinex(y: 1),
+      table.hline(y: 0),
+      table.hline(y: 1, stroke: .5pt),
       ..args,
-      hlinex(),
+      table.hline(),
     )
   }
 )

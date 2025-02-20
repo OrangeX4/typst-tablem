@@ -8,3 +8,4 @@ keywords = ["tablem", "markdown", "table"]
 license = "MIT"
 repository = "https://github.com/OrangeX4/typst-tablem"
 description = "Write markdown-like tables easily."
+categories = ["layout", "components", "utility"]

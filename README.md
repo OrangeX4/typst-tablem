@@ -6,7 +6,7 @@ Write markdown-like tables easily.
 
 Have a look at the source [here](./examples/example.typ).
 
-![Example](./examples/example.png)
+![image](https://github.com/user-attachments/assets/60c14f3e-408d-46e2-b147-3504658bf8e8)
 
 
 ## Usage
@@ -14,20 +14,20 @@ Have a look at the source [here](./examples/example.typ).
 You can simply copy the markdown table and paste it in `tablem` function.
 
 ```typ
-#import "@preview/tablem:0.1.0": tablem, three-line-table
+#import "@preview/tablem:0.2.0": tablem, three-line-table
 
 #tablem[
   | *Name* | *Location* | *Height* | *Score* |
   | ------ | ---------- | -------- | ------- |
-  | John   | Second St. | 180 cm   |  5      |
-  | Wally  | Third Av.  | 160 cm   |  10     |
+  | John   | Second St. | 180 cm   | 5       |
+  | Wally  | Third Av.  | 160 cm   | 10      |
 ]
 ```
 
 And you can use custom render function.
 
 ```typ
-#import "@preview/tablem:0.1.0": tablem, three-line-table
+#import "@preview/tablem:0.2.0": tablem, three-line-table
 
 #let three-line-table = tablem.with(
   render: (columns: auto, ..args) => {
@@ -46,13 +46,55 @@ And you can use custom render function.
 #three-line-table[
   | *Name* | *Location* | *Height* | *Score* |
   | ------ | ---------- | -------- | ------- |
-  | John   | Second St. | 180 cm   |  5      |
-  | Wally  | Third Av.  | 160 cm   |  10     |
+  | John   | Second St. | 180 cm   | 5       |
+  | Wally  | Third Av.  | 160 cm   | 10      |
 ]
 ```
 
-![Example](./examples/example.png)
+![image](https://github.com/user-attachments/assets/60c14f3e-408d-46e2-b147-3504658bf8e8)
 
+## Cell merging
+
+Tablem supports both horizontal and vertical cell merging. You can merge cells using either `<` (or empty cell) for horizontal merging, and `^` (or empty cell) for vertical merging.
+
+### Horizontal Cell Merging
+
+Here's an example of horizontal cell merging:
+
+```typ
+#three-line-table[
+  | Substance             | Subcritical °C | Supercritical °C |
+  | --------------------- | -------------- | ---------------- |
+  | Hydrochloric Acid     | 12.0           | 92.1             |
+  | Sodium Myreth Sulfate | 16.6           | 104              |
+  | Potassium Hydroxide   | 24.7           | <                |
+]
+```
+
+You can also use empty cells instead of `<`:
+
+```typ
+  | Potassium Hydroxide   | 24.7           |                  |
+```
+
+Both syntaxes will produce the same result where "24.7" spans across two columns.
+
+![image](https://github.com/user-attachments/assets/20316595-ec8c-4924-a403-1dd401867b63)
+
+### Vertical and Combined Cell Merging
+
+You can merge cells vertically using `^` or empty cells, and even combine horizontal and vertical merging.
+
+```typ
+#tablem(ignore-second-row: false)[
+  | Soldier | Hero       | <        | Soldier |
+  | Guard   | Horizontal | <        | Guard   |
+  | ^       | Soldier    | Soldier  | ^       |
+  | Soldier | Gate       | <        | Soldier |
+]
+```
+
+![image](https://github.com/user-attachments/assets/7e707d0b-5e8c-4f14-97e6-22026988a1f9)
 
 ## `tablem` function
 
@@ -73,11 +115,6 @@ And you can use custom render function.
 - `use-table-header`: [`boolean`] &mdash; Whether to use `table.header` wrapper for the first row. Default to be `true`.
 - `args`: [`any`] &mdash; Some arguments you want to pass to `render` function.
 - `body`: [`content`] &mdash; The markdown-like table. There should be no extra line breaks in it.
-
-
-## Limitations
-
-Cell merging has not yet been implemented.
 
 
 ## License

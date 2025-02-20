@@ -34,6 +34,46 @@
   _arr-trim(res)
 }
 
+// merge cells in a row
+#let _merge-cells(row, start, count) = {
+  let merged = ()
+  let i = 0
+  while i < count {
+    if i >= row.len() { break }
+    if row.at(i) == [>] {
+      let span = 1
+      let j = i + 1
+      while j < count and j < row.len() and row.at(j) == [>] {
+        span += 1
+        j += 1
+      }
+      if j < count and j < row.len() {
+        merged.push(table.cell(colspan: span + 1, row.at(j)))
+        i = j + 1
+      } else {
+        i = j
+      }
+    } else {
+      merged.push(row.at(i))
+      i += 1
+    }
+  }
+  merged
+}
+
+#let _process-table-body(body, columns) = {
+  let processed = ()
+  let row = ()
+  for (i, cell) in body.enumerate() {
+    row.push(cell)
+    if calc.rem(i + 1, columns) == 0 {
+      processed += _merge-cells(row, 0, columns)
+      row = ()
+    }
+  }
+  processed
+}
+
 #let tablem(
   render: table,
   ignore-second-row: true,
@@ -74,11 +114,12 @@
   } else {
     res.slice(calc.min(columns, len))
   }
+  let processed-body = _process-table-body(table-body, columns)
   // render with custom render function
   if use-table-header {
-    render(columns: columns, ..args, table.header(..table-header), ..table-body)
+    render(columns: columns, ..args, table.header(..table-header), ..processed-body)
   } else {
-    render(columns: columns, ..args, ..table-header, ..table-body)
+    render(columns: columns, ..args, ..table-header, ..processed-body)
   }
 }
 

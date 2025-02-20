@@ -79,7 +79,7 @@ You can also use empty cells instead of `<`:
 
 Both syntaxes will produce the same result where "24.7" spans across two columns.
 
-![image](https://github.com/user-attachments/assets/20316595-ec8c-4924-a403-1dd401867b63)
+![image](https://github.com/user-attachments/assets/0b110e5e-98f0-49b3-94af-a72690fd556b)
 
 ### Vertical and Combined Cell Merging
 

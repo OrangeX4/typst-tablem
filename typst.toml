@@ -1,6 +1,6 @@
 [package]
 name = "tablem"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["OrangeX4"]
 entrypoint = "tablem.typ"
 exclude = ["./examples"]
